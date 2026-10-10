@@ -1,0 +1,64 @@
+backend:
+  name: github
+  repo: mahbubur2277-hub/Chobibarta-Bd
+  branch: main
+
+media_folder: "images/news"
+public_folder: "/images/news"
+
+publish_mode: editorial_workflow
+
+site_url: https://www.chobibartabd.online
+display_url: https://www.chobibartabd.online
+
+collections:
+  - name: "news"
+    label: "News Headlines"
+    label_singular: "News Headline"
+    folder: "news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - label: "English Headline"
+        name: "title_en"
+        widget: "string"
+
+      - label: "Bengali Headline"
+        name: "title_bn"
+        widget: "string"
+
+      - label: "Short Summary"
+        name: "summary"
+        widget: "text"
+        required: false
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - Bangladesh
+          - International
+          - Politics
+          - Economy
+          - Sports
+          - Education
+          - Technology
+
+      - label: "News Source"
+        name: "source"
+        widget: "string"
+
+      - label: "Original Article Link"
+        name: "source_url"
+        widget: "string"
+
+      - label: "Publication Date"
+        name: "date"
+        widget: "datetime"
+
+      - label: "Approved for Publication"
+        name: "approved"
+        widget: "boolean"
+        default: false
