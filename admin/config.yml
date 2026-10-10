@@ -1,6 +1,6 @@
 backend:
-  name: github
-  repo: mahbubur2277-hub/Chobibarta-Bd
+  name: turbo-github
+  turbo_site_id: ea067d0b-50d0-4b85-a86f-470665d1df13
   branch: main
 
 media_folder: "images/news"
