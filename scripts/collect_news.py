@@ -1,5 +1,6 @@
 import json
 import os
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -32,16 +33,24 @@ def translate_to_english(text):
     if not has_bengali(text):
         return text
 
-    try:
-        translated = GoogleTranslator(
-            source="auto",
-            target="en"
-        ).translate(text)
+    for attempt in range(2):
+        try:
+            time.sleep(3)
+            translated = GoogleTranslator(
+                source="auto",
+                target="en"
+            ).translate(text)
 
-        return translated.strip() if translated else ""
-    except Exception as exc:
-        print(f"Translation failed: {exc}")
-        return ""
+            return translated.strip() if translated else ""
+
+        except Exception as exc:
+            print(f"Translation attempt {attempt + 1} failed: {exc}")
+            if attempt == 0:
+                time.sleep(15)
+
+    return ""
+        
+    
 for source, url in FEEDS.items():
     try:
         request = Request(url, headers={"User-Agent": "ChobiBartaBD-NewsReader/1.0"})
