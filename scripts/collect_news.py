@@ -50,10 +50,17 @@ for source, url in FEEDS.items():
     except Exception as exc:
         print(f"Could not collect {source}: {exc}")
 
-filename = datetime.now(timezone.utc).strftime("%Y-%m-%d") + ".json"
-(output_dir / filename).write_text(
-    json.dumps(items, ensure_ascii=False, indent=2),
-    encoding="utf-8"
-)
+for index, item in enumerate(items, start=1):
+    filename = f"{datetime.now(timezone.utc).strftime('%Y-%m-%d')}-{index:03d}.json"
+    (output_dir / filename).write_text(
+        json.dumps(item, ensure_ascii=False, indent=2),
+        encoding="utf-8"
+    )
+
+print(f"Saved {len(items)} headlines for review.")
+
+    
+    
+
 
 print(f"Saved {len(items)} headlines for review.")
