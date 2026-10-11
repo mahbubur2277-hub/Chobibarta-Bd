@@ -15,7 +15,7 @@ collections:
   - name: "news"
     label: "News Headlines"
     label_singular: "News Headline"
-    folder: "news"
+    folder: "review"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     extension: "json"
