@@ -40,8 +40,10 @@ for source, url in FEEDS.items():
                 "collected_at": datetime.now(timezone.utc).isoformat(),
                 "status": "needs_review",
                 "title_en": title if not any("\u0980" <= char <= "\u09FF" for char in title) else "",
-                "title_bn": title if any("\u0980" <= char <= "\u09FF" for char in title) else "",
-                "summary_bn": description if any("\u0980" <= char <= "\u09FF" for char in description) else "",
+"title_bn": title if any("\u0980" <= char <= "\u09FF" for char in title) else "",
+"summary_bn": description if any("\u0980" <= char <= "\u09FF" for char in description) else "",
+                
+                
                 
         
                 "approved": False
