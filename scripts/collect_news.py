@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
 import xml.etree.ElementTree as ET
+from openai import OpenAI
 from deep_translator import GoogleTranslator
 
 # Only add feeds after checking access and reuse terms.
@@ -24,7 +25,9 @@ def has_bengali(text):
     return any("\u0980" <= char <= "\u09FF" for char in (text or ""))
 
 
-def translate_to_english(text):
+ 
+ 
+ def translate_to_english(text):
     text = (text or "").strip()
 
     if not text:
@@ -33,22 +36,37 @@ def translate_to_english(text):
     if not has_bengali(text):
         return text
 
-    for attempt in range(2):
-        try:
-            time.sleep(3)
-            translated = GoogleTranslator(
-                source="auto",
-                target="en"
-            ).translate(text)
+    # Try Google Translate first
+    try:
+        translated = GoogleTranslator(
+            source="auto",
+            target="en"
+        ).translate(text)
 
-            return translated.strip() if translated else ""
+        if translated and translated.strip():
+            return translated.strip()
 
-        except Exception as exc:
-            print(f"Translation attempt {attempt + 1} failed: {exc}")
-            if attempt == 0:
-                time.sleep(15)
+    except Exception as exc:
+        print(f"Google translation failed: {exc}")
 
-    return ""
+    # Use OpenAI if Google fails
+    try:
+        client = OpenAI()
+        response = client.responses.create(
+            model="gpt-4.1-mini",
+            input=(
+                "Translate this Bengali news text into accurate, "
+                "natural English. Preserve names and facts. "
+                "Return only the translation:\n\n" + text
+            ),
+        )
+
+        translated = response.output_text
+        return translated.strip() if translated else ""
+
+    except Exception as exc:
+        print(f"OpenAI translation failed: {exc}")
+        return ""
         
     
 for source, url in FEEDS.items():
