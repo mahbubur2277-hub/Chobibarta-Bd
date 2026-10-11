@@ -33,14 +33,57 @@ def translate_to_english(text):
     global OPENAI_FAILED
 
     text = (text or "").strip()
-
     if not text:
         return ""
 
     if not has_bengali(text):
         return text
 
-    # Try OpenAI first, unless it already failed during this run.
+    # 1. Google Translate is the primary service.
+    google_key = os.getenv("GOOGLE_TRANSLATE_API_KEY")
+
+    if google_key:
+        try:
+            payload = json.dumps({
+                "q": text,
+                "target": "en",
+                "format": "text",
+            }).encode("utf-8")
+
+            request = Request(
+                "https://translation.googleapis.com/language/translate/v2",
+                data=payload,
+                headers={
+                    "Content-Type": "application/json",
+                    "X-goog-api-key": google_key,
+                },
+                method="POST",
+            )
+
+            with urlopen(request, timeout=20) as response:
+                result = json.loads(
+                    response.read().decode("utf-8")
+                )
+
+            translations = result.get("data", {}).get(
+                "translations", []
+            )
+
+            if translations:
+                translated = (
+                    translations[0].get("translatedText") or ""
+                ).strip()
+
+                if translated:
+                    print("Translation succeeded with Google Translate.")
+                    return translated
+
+        except Exception as exc:
+            print(f"Google Translate failed; trying backup: {exc}")
+    else:
+        print("Google Translate key is missing; trying backup.")
+
+    # 2. OpenAI is an optional backup.
     if not OPENAI_FAILED:
         try:
             client = OpenAI()
@@ -52,17 +95,17 @@ def translate_to_english(text):
                     "Return only the translation:\n\n" + text
                 ),
             )
+
             translated = response.output_text
             if translated and translated.strip():
+                print("Translation succeeded with OpenAI.")
                 return translated.strip()
 
         except Exception as exc:
-            print(
-                f"OpenAI translation failed; trying free backup: {exc}"
-            )
+            print(f"OpenAI translation failed; trying free backup: {exc}")
             OPENAI_FAILED = True
 
-    # Free community translation services.
+    # 3. Optional free community translation services.
     endpoints = [
         "https://translate.fedilab.app/translate",
         "https://translate.cutie.dating/translate",
@@ -96,6 +139,7 @@ def translate_to_english(text):
             ).strip()
 
             if translated:
+                print("Translation succeeded with a free backup.")
                 return translated
 
         except Exception as exc:
