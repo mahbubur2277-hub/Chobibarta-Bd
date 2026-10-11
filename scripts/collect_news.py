@@ -4,6 +4,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
+from urllib.parse import urlencode
 import xml.etree.ElementTree as ET
 from openai import OpenAI
 
@@ -25,7 +26,12 @@ def has_bengali(text):
     return any("\u0980" <= char <= "\u09FF" for char in (text or ""))
 
 
+OPENAI_FAILED = False
+
+
 def translate_to_english(text):
+    global OPENAI_FAILED
+
     text = (text or "").strip()
 
     if not text:
@@ -34,22 +40,69 @@ def translate_to_english(text):
     if not has_bengali(text):
         return text
 
-    try:
-        client = OpenAI()
-        response = client.responses.create(
-            model="gpt-4.1-mini",
-            input=(
-                "Translate this Bengali news text into accurate, "
-                "natural English. Preserve names and facts. "
-                "Return only the translation:\n\n" + text
-            ),
-        )
-        translated = response.output_text
-        return translated.strip() if translated else ""
+    # Try OpenAI first, unless it already failed during this run.
+    if not OPENAI_FAILED:
+        try:
+            client = OpenAI()
+            response = client.responses.create(
+                model="gpt-4.1-mini",
+                input=(
+                    "Translate this Bengali news text into accurate, "
+                    "natural English. Preserve names and facts. "
+                    "Return only the translation:\n\n" + text
+                ),
+            )
+            translated = response.output_text
+            if translated and translated.strip():
+                return translated.strip()
 
-    except Exception as exc:
-        print(f"OpenAI translation failed: {exc}")
-        return ""
+        except Exception as exc:
+            print(
+                f"OpenAI translation failed; trying free backup: {exc}"
+            )
+            OPENAI_FAILED = True
+
+    # Free community translation services.
+    endpoints = [
+        "https://translate.fedilab.app/translate",
+        "https://translate.cutie.dating/translate",
+    ]
+
+    for endpoint in endpoints:
+        try:
+            data = urlencode({
+                "q": text,
+                "source": "auto",
+                "target": "en",
+                "format": "text",
+            }).encode("utf-8")
+
+            request = Request(
+                endpoint,
+                data=data,
+                headers={
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                method="POST",
+            )
+
+            with urlopen(request, timeout=20) as response:
+                result = json.loads(
+                    response.read().decode("utf-8")
+                )
+
+            translated = (
+                result.get("translatedText") or ""
+            ).strip()
+
+            if translated:
+                return translated
+
+        except Exception as exc:
+            print(f"Free translation backup failed: {exc}")
+
+    print("All translation services failed; manual review needed.")
+    return ""
         
     
 for source, url in FEEDS.items():
