@@ -22,7 +22,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install feed reader
-        run: pip install feedparser deep-translator openai
+        run: pip install feedparser openai
 
       - name: Collect available news headlines
         env:
