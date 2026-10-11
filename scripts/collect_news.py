@@ -23,7 +23,9 @@ seen = set()
 
 def has_bengali(text):
     return any("\u0980" <= char <= "\u09FF" for char in (text or ""))
- def translate_to_english(text):
+
+
+def translate_to_english(text):
     text = (text or "").strip()
 
     if not text:
