@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
 import xml.etree.ElementTree as ET
+from deep_translator import GoogleTranslator
 
 # Only add feeds after checking access and reuse terms.
 FEEDS = {
@@ -17,6 +18,30 @@ output_dir.mkdir(exist_ok=True)
 items = []
 seen = set()
 
+
+def has_bengali(text):
+    return any("\u0980" <= char <= "\u09FF" for char in (text or ""))
+
+
+def translate_to_english(text):
+    text = (text or "").strip()
+
+    if not text:
+        return ""
+
+    if not has_bengali(text):
+        return text
+
+    try:
+        translated = GoogleTranslator(
+            source="auto",
+            target="en"
+        ).translate(text)
+
+        return translated.strip() if translated else ""
+    except Exception as exc:
+        print(f"Translation failed: {exc}")
+        return ""
 for source, url in FEEDS.items():
     try:
         request = Request(url, headers={"User-Agent": "ChobiBartaBD-NewsReader/1.0"})
@@ -39,9 +64,12 @@ for source, url in FEEDS.items():
                 "source_url": link,
                 "collected_at": datetime.now(timezone.utc).isoformat(),
                 "status": "needs_review",
-                "title_en": title if not any("\u0980" <= char <= "\u09FF" for char in title) else "",
-"title_bn": title if any("\u0980" <= char <= "\u09FF" for char in title) else "",
-"summary_bn": description if any("\u0980" <= char <= "\u09FF" for char in description) else "",
+                "title_en": translate_to_english(title),
+            "title_bn": title if has_bengali(title) else "",
+            "summary_en": translate_to_english(description),
+            "summary_bn": description if has_bengali(description) else "",
+
+
                 
                 
                 
