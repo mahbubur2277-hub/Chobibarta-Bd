@@ -22,7 +22,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install feed reader
-        run: pip install feedparser
+        run: pip install feedparser deep-translator
 
       - name: Collect available news headlines
         run: python scripts/collect_news.py
