@@ -26,7 +26,7 @@ def has_bengali(text):
     return any("\u0980" <= char <= "\u09FF" for char in (text or ""))
 
 
-OPENAI_FAILED = False
+OPENAI_FAILED= False
 
 
 def translate_to_english(text):
