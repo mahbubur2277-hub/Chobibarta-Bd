@@ -22,9 +22,11 @@ jobs:
           python-version: "3.12"
 
       - name: Install feed reader
-        run: pip install feedparser deep-translator
+        run: pip install feedparser deep-translator openai
 
       - name: Collect available news headlines
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python scripts/collect_news.py
 
       - name: Save collected headlines for review
