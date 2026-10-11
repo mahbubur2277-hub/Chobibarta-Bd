@@ -29,8 +29,13 @@ collections:
         name: "title_bn"
         widget: "string"
 
-      - label: "Short Summary"
-        name: "summary"
+      - label: "English Summary"
+        name: "summary_en"
+        widget: "text"
+        required: false
+
+      - label: "Bengali Summary"
+        name: "summary_bn"
         widget: "text"
         required: false
 
