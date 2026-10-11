@@ -27,6 +27,7 @@ jobs:
       - name: Collect available news headlines
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GOOGLE_TRANSLATE_API_KEY: ${{ secrets.GOOGLE_TRANSLATE_API_KEY }}
         run: python scripts/collect_news.py
 
       - name: Save collected headlines for review
