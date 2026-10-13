@@ -81,13 +81,13 @@ collections:
         default: false
   
   - name: "hot_of_the_day"
-        label: "Hot of the Day"
-        folder: "hot-of-the-day"
-        create: true
-        slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-        extension: "json"
-        format: "json"
-        fields:
+    label: "Hot of the Day"
+    folder: "hot-of-the-day"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
           - label: "Picture Title"
             name: "title"
             widget: "string"
