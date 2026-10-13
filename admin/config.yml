@@ -102,6 +102,7 @@ collections:
         name: "approved"
         widget: "boolean"
         default: false
+  - name: "hot_of_the_day"
     label: "Hot of the Day"
     folder: "hot-of-the-day"
     create: true
