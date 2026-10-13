@@ -79,9 +79,9 @@ collections:
         name: "approved"
         widget: "boolean"
         default: false
-  - name: "Hot of the Day"
-    label: "Hot-of-the-day"
-    folder: "picture-gallery"
+  - name: "picture_gallery"
+    label: "Hot of the Day"
+    folder: "hot-of-the-day"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     extension: "json"
