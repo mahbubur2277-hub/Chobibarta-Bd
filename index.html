@@ -229,5 +229,26 @@ document.getElementById('current-date').textContent =
     month: 'long',
     year: 'numeric'
   });
-</script></body>
+</script>
+<script>
+fetch('/breaking-news/index.json')
+  .then(response => response.ok ? response.json() : [])
+  .then(items => {
+    const ticker = document.getElementById('breaking-news-ticker');
+    if (!ticker || !Array.isArray(items)) return;
+
+    const headlines = items
+      .filter(item => item.approved === true && item.title)
+      .map(item => item.title);
+
+    if (headlines.length) {
+      ticker.innerHTML = headlines
+        .map(title => <span>${title}</span>)
+        .join(' <span> • </span> ');
+    }
+  })
+  .catch(() => {});
+</script>
+</body>
 </html>
+
