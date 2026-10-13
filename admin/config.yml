@@ -79,7 +79,7 @@ collections:
         name: "approved"
         widget: "boolean"
         default: false
-  - name: "picture_gallery"
+  
   - name: "breaking_news"
     label: "Breaking News"
     label_singular: "Breaking News Headline"
