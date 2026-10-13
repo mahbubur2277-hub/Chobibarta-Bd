@@ -79,3 +79,28 @@ collections:
         name: "approved"
         widget: "boolean"
         default: false
+        - name: "picture_gallery"
+    label: "Miscellaneous Picture Gallery"
+    folder: "picture-gallery"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - label: "Picture Title"
+        name: "title"
+        widget: "string"
+      - label: "Picture"
+        name: "image"
+        widget: "image"
+      - label: "Caption"
+        name: "caption"
+        widget: "text"
+        required: false
+      - label: "Publication Date"
+        name: "date"
+        widget: "datetime"
+      - label: "Approved for Publication"
+        name: "approved"
+        widget: "boolean"
+        default: false
