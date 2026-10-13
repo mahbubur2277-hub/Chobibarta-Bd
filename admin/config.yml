@@ -79,8 +79,8 @@ collections:
         name: "approved"
         widget: "boolean"
         default: false
-  - name: "picture_gallery"
-    label: "Miscellaneous Picture Gallery"
+  - name: "Hot of the Day"
+    label: "Hot-of-the-day"
     folder: "picture-gallery"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
@@ -90,9 +90,15 @@ collections:
       - label: "Picture Title"
         name: "title"
         widget: "string"
-      - label: "Picture"
-        name: "image"
-        widget: "image"
+      - label: "Slideshow Pictures (up to 3)"
+            name: "images"
+            widget: "list"
+            min: 1
+            max: 3
+            field:
+              label: "Picture"
+              name: "image"
+              widget: "image"
       - label: "Caption"
         name: "caption"
         widget: "text"
