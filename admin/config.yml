@@ -111,3 +111,23 @@ collections:
             name: "approved"
             widget: "boolean"
             default: false
+
+  - name: "breaking_news"
+    label: "Breaking News"
+    label_singular: "Breaking News Item"
+    folder: "breaking-news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - label: "Breaking Headline"
+        name: "title"
+        widget: "string"
+      - label: "Publication Date"
+        name: "date"
+        widget: "datetime"
+      - label: "Approved for Publication"
+        name: "approved"
+        widget: "boolean"
+        default: false
