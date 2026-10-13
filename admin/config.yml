@@ -49,7 +49,9 @@ collections:
           - Economy
           - Sports
           - Education
-          - Technology
+          - Science & Technology
+          - editorial
+          - Miscellaneous
 
       - label: "News Source"
         name: "source"
@@ -58,6 +60,16 @@ collections:
       - label: "Original Article Link"
         name: "source_url"
         widget: "string"
+
+      - label: "News Image"
+        name: "image"
+        widget: "image"
+        required: false
+
+      - label: "Image Caption"
+        name: "image_caption"
+        widget: "string"
+        required: false
 
       - label: "Publication Date"
         name: "date"
