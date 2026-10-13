@@ -79,7 +79,7 @@ collections:
         name: "approved"
         widget: "boolean"
         default: false
-  -name: "picture_gallery"
+  - name: "picture_gallery"
     label: "Miscellaneous Picture Gallery"
     folder: "picture-gallery"
     create: true
