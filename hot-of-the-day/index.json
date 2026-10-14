@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "approved": true,
+    "title": "pic of day",
+    "images": [
+      "/images/california now.jpeg",
+      "/images/holywood.png",
+      "/images/holywood.png"
+    ],
+    "caption": "",
+    "date": "2026-10-15T00:37:00.000+01:00"
+  }
+]
