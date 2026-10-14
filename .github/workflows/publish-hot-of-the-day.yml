@@ -1,0 +1,82 @@
+name: Publish Approved Hot of the Day
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'hot-of-the-day/*.json'
+      - '.github/workflows/publish-hot-of-the-day.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-index:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get repository
+        uses: actions/checkout@v4
+
+      - name: Build approved pictures index
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          folder = Path("hot-of-the-day")
+          items = []
+
+          for file in sorted(folder.glob("*.json")):
+              if file.name == "index.json":
+                  continue
+
+              try:
+                  data = json.loads(file.read_text(encoding="utf-8"))
+
+                  if data.get("approved") is not True:
+                      continue
+
+                  images = data.get("images", [])
+                  if not isinstance(images, list):
+                      images = []
+
+                  clean_images = []
+                  for entry in images[:3]:
+                      src = entry if isinstance(entry, str) else entry.get("image", "")
+                      if isinstance(src, str) and src.strip():
+                          clean_images.append(src)
+
+                  if clean_images:
+                      items.append({
+                          "approved": True,
+                          "title": data.get("title", ""),
+                          "images": clean_images,
+                          "caption": data.get("caption", ""),
+                          "date": data.get("date", ""),
+                      })
+
+              except (json.JSONDecodeError, OSError) as error:
+                  print(f"Skipping {file}: {error}")
+
+          items.sort(key=lambda item: item.get("date", ""), reverse=True)
+
+          output = folder / "index.json"
+          output.write_text(
+              json.dumps(items, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8"
+          )
+          print(f"Created {output} with {len(items)} approved entries.")
+          PY
+
+      - name: Commit updated index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add hot-of-the-day/index.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update approved Hot of the Day index"
+            git push
+          fi
