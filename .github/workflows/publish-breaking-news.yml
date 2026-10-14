@@ -1,0 +1,65 @@
+name: Publish Approved Breaking News
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'breaking-news/*.json'
+      - '.github/workflows/publish-breaking-news.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish-breaking-news:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get repository
+        uses: actions/checkout@v4
+
+      - name: Build approved headlines index
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          folder = Path("breaking-news")
+          items = []
+
+          for file in sorted(folder.glob("*.json")):
+              if file.name == "index.json":
+                  continue
+
+              try:
+                  data = json.loads(file.read_text(encoding="utf-8"))
+                  if data.get("approved") is True and data.get("title"):
+                      items.append({
+                          "approved": True,
+                          "title": data["title"],
+                          "date": data.get("date", "")
+                      })
+              except (json.JSONDecodeError, OSError) as error:
+                  print(f"Skipping {file}: {error}")
+
+          items.sort(key=lambda item: item.get("date", ""), reverse=True)
+
+          output = folder / "index.json"
+          output.write_text(
+              json.dumps(items, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8"
+          )
+          print(f"Created {output} with {len(items)} approved headlines.")
+          PY
+
+      - name: Commit updated index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add breaking-news/index.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update approved Breaking News index"
+            git push
+          fi
