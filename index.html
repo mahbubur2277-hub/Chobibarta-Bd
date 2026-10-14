@@ -253,6 +253,54 @@ fetch('/breaking-news/index.json')
   })
   .catch(() => {});
 </script>
+<script>
+fetch('/hot-of-the-day/2026-10-14-todays-test.json')
+  .then(response => {
+    if (!response.ok) throw new Error('Hot of the Day file not found');
+    return response.json();
+  })
+  .then(item => {
+    const panel = document.getElementById('hot-of-the-day-content');
+    if (!panel || item.approved !== true) return;
+
+    const images = Array.isArray(item.images) ? item.images : [];
+    if (!images.length) {
+      panel.textContent = 'No picture available.';
+      return;
+    }
+
+    panel.replaceChildren();
+
+    images.forEach((entry, index) => {
+      const src = typeof entry === 'string' ? entry : entry.image;
+      if (!src) return;
+
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = item.title || 'Hot of the Day';
+      img.style.cssText =
+        'display:block;width:100%;max-height:220px;object-fit:cover;border-radius:6px;';
+      img.style.display = index === 0 ? 'block' : 'none';
+      panel.appendChild(img);
+    });
+
+    const caption = document.createElement('p');
+    caption.textContent = item.caption || '';
+    caption.style.cssText = 'margin:8px 0 0;font-size:14px;';
+    panel.appendChild(caption);
+
+    let current = 0;
+    const slides = panel.querySelectorAll('img');
+    if (slides.length > 1) {
+      setInterval(() => {
+        slides[current].style.display = 'none';
+        current = (current + 1) % slides.length;
+        slides[current].style.display = 'block';
+      }, 4000);
+    }
+  })
+  .catch(error => console.log('Hot of the Day:', error));
+</script>
 </body>
 </html>
 
