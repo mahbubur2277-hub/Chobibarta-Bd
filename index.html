@@ -243,7 +243,7 @@ fetch('/breaking-news/index.json')
 
     if (headlines.length) {
       ticker.innerHTML = headlines
-        .map(title => <span>${title}</span>)
+        .map(title => `<span>${title}</span>`)
         .join(' <span> • </span> ');
     }
   })
