@@ -1,0 +1,11 @@
+{
+  "approved": true,
+  "title": "Hot of Today",
+  "images": [
+    "/images/news/california-now.jpeg",
+    "/images/news/sauidi-now.jpeg",
+    "/images/news/holywood.png"
+  ],
+  "caption": "Hot of the day",
+  "date": "2026-10-14T12:57:00.000+01:00"
+}
