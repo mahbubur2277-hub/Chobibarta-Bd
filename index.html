@@ -254,7 +254,7 @@ fetch('/breaking-news/index.json')
   .catch(() => {});
 </script>
 <script>
-fetch('/hot-of-the-day/2026-10-14-todays-test.json')
+fetch('/hot-of-the-day/2026-10-14-todays-picture.json')
   .then(response => {
     if (!response.ok) throw new Error('Hot of the Day file not found');
     return response.json();
