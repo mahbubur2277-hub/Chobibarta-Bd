@@ -264,7 +264,11 @@ fetch('/hot-of-the-day/index.json')
   .then(items => {
     const panel = document.getElementById('hot-of-the-day-content');
 
-    if (!panel || !Array.isArray(items)) return;
+    if (!panel) return;
+
+if (!Array.isArray(items)) {
+    items = [items];
+}
 
     const item = items.find(entry => entry && entry.approved === true);
 
