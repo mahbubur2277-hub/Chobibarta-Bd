@@ -300,6 +300,10 @@ if (!Array.isArray(items)) {
     }
 
     panel.replaceChildren();
+    const heading = document.createElement('h3');
+heading.textContent = item.title || 'Hot of the Day';
+heading.style.cssText = 'margin:0 0 10px;font-size:18px;';
+panel.appendChild(heading);
 
     const slides = [];
 
