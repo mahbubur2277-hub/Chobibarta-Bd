@@ -121,7 +121,7 @@ collections:
     extension: "json"
     format: "json"
     fields:
-      - label: "Breaking Headline"
+  - label: "Breaking Headline"
         name: "title"
         widget: "string"
       - label: "Publication Date"
@@ -131,7 +131,7 @@ collections:
         name: "approved"
         widget: "boolean"
         default: false
-        - name: "video_clips"
+  - name: "video_clips"
     label: "Video Clips"
     label_singular: "Video Clip"
     folder: "video-clips"
