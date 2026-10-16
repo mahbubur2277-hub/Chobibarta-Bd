@@ -131,3 +131,30 @@ collections:
         name: "approved"
         widget: "boolean"
         default: false
+        - name: "video_clips"
+    label: "Video Clips"
+    label_singular: "Video Clip"
+    folder: "video-clips"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - label: "Video Title"
+        name: "title"
+        widget: "string"
+      - label: "Bengali Caption"
+        name: "caption_bn"
+        widget: "text"
+        required: false
+      - label: "Video URL"
+        name: "video_url"
+        widget: "string"
+        hint: "Paste a YouTube video link or a direct MP4 URL"
+      - label: "Publication Date"
+        name: "date"
+        widget: "datetime"
+      - label: "Approved for Publication"
+        name: "approved"
+        widget: "boolean"
+        default: false
