@@ -171,10 +171,11 @@ for source, url in FEEDS.items():
                 "source_url": link,
                 "collected_at": datetime.now(timezone.utc).isoformat(),
                 "status": "needs_review",
-                "title_en": translate_to_english(title),
-            "title_bn": title if has_bengali(title) else "",
-            "summary_en": translate_to_english(description),
-            "summary_bn": description if has_bengali(description) else "",
+                
+            "title_en": translate_to_english(title) or title,
+                "title_bn": title,
+                "summary_en": translate_to_english(description) or description,
+                "summary_bn": description,
 
 
                 
