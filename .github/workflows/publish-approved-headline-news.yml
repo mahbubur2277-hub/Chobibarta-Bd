@@ -35,9 +35,14 @@ jobs:
               except Exception:
                   continue
 
-              if item.get("approved") is True:
-                  if item.get("title_en") or item.get("title_bn"):
-                      items.append(item)
+          records = item if isinstance(item, list) else [item]
+            for record in records:
+                if not isinstance(record, dict):
+                    continue
+                if record.get("approved") is True:
+                    if record.get("title_en") or record.get("title_bn"):
+                        items.append(record)
+                    
 
           items.sort(
               key=lambda x: x.get("date") or x.get("collected_at") or "",
