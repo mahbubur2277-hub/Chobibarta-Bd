@@ -38,19 +38,12 @@ jobs:
             continue
         if record.get("approved") is True:
             if record.get("title_en") or record.get("title_bn"):
-                items.append(record)
-
+        items.append(record)
 items.sort(
     key=lambda x: x.get("date") or x.get("collected_at") or "",
     reverse=True
 )
 
-                    
-
-          items.sort(
-              key=lambda x: x.get("date") or x.get("collected_at") or "",
-              reverse=True
-          )
 
           (output / "index.json").write_text(
               json.dumps(items, ensure_ascii=False, indent=2),
