@@ -1,13 +1,15 @@
 {
-  "source": "BBC News বাংলা",
-  "title_original": "ডোনাল্ড ট্রাম্প কি মিয়ানমারের সঙ্গে ব্যবসা করতে আগ্রহী?",
-  "summary_original": "এমন লক্ষণ দেখা যাচ্ছে যে, একসময় বিশ্বজুড়ে একঘরে হয়ে থাকা মিয়ানমারের প্রতি যুক্তরাষ্ট্র তার নীতি পরিবর্তন করছে।",
-  "source_url": "https://www.bbc.com/bengali/articles/cxvgd9dnrv39o?at_medium=RSS&at_campaign=rss",
-  "collected_at": "2026-10-21T05:27:59.844325+00:00",
-  "status": "needs_review",
-  "title_en": "Is Donald Trump interested in doing business with Myanmar?",
-  "title_bn": "ডোনাল্ড ট্রাম্প কি মিয়ানমারের সঙ্গে ব্যবসা করতে আগ্রহী?",
   "summary_en": "There are signs that the United States is changing its policy towards Myanmar, which was once isolated from the world.",
   "summary_bn": "এমন লক্ষণ দেখা যাচ্ছে যে, একসময় বিশ্বজুড়ে একঘরে হয়ে থাকা মিয়ানমারের প্রতি যুক্তরাষ্ট্র তার নীতি পরিবর্তন করছে।",
-  "approved": false
+  "collected_at": "2026-10-21T05:27:59.844325+00:00",
+  "summary_original": "এমন লক্ষণ দেখা যাচ্ছে যে, একসময় বিশ্বজুড়ে একঘরে হয়ে থাকা মিয়ানমারের প্রতি যুক্তরাষ্ট্র তার নীতি পরিবর্তন করছে।",
+  "source_url": "https://www.bbc.com/bengali/articles/cxvgd9dnrv39o?at_medium=RSS&at_campaign=rss",
+  "date": "2026-10-21T12:23:00.000+01:00",
+  "title_en": "Is Donald Trump interested in doing business with Myanmar?",
+  "status": "needs_review",
+  "title_bn": "ডোনাল্ড ট্রাম্প কি মিয়ানমারের সঙ্গে ব্যবসা করতে আগ্রহী?",
+  "approved": true,
+  "title_original": "ডোনাল্ড ট্রাম্প কি মিয়ানমারের সঙ্গে ব্যবসা করতে আগ্রহী?",
+  "source": "BBC News বাংলা",
+  "category": "International"
 }
