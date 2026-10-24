@@ -453,6 +453,37 @@ fetch('/headline-news/index.json')
   }
 })();
 </script>
-</body>
+<script>
+fetch('/headline-news/index.json')
+  .then(response => {
+    if (!response.ok) throw new Error('News file not found');
+    return response.json();
+  })
+  .then(items => {
+    if (!Array.isArray(items)) return;
+
+    const news = items.find(item =>
+      item &&
+      item.approved === true &&
+      item.main_news === true &&
+      (item.title_bn || item.title_en)
+    );
+
+    if (!news) return;
+
+    const title = document.getElementById('main-news-title');
+    const summary = document.getElementById('main-news-summary');
+    const category = document.getElementById('main-news-category');
+    const meta = document.getElementById('main-news-meta');
+
+    if (title) title.textContent = news.title_bn || news.title_en;
+    if (summary) summary.textContent =
+      news.summary_bn || news.summary_en || '';
+    if (category) category.textContent = news.category || 'শীর্ষ সংবাদ';
+    if (meta) meta.textContent = news.source || 'ছবি বার্তা';
+
+  })
+  .catch(error => console.error('Main news loading error:', error));
+</script></body>
 </html>
 
