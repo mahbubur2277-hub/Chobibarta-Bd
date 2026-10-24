@@ -53,13 +53,13 @@ collections:
               - "editorial"
               - "Miscellaneous"
 
-          - label: "Show as Main News"
+      - label: "Show as Main News"
             name: "main_news"
             widget: "boolean"
             default: false
             required: false
 
-          - label: "News Source"
+      - label: "News Source"
             name: "source"
             widget: "string"
 
