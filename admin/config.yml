@@ -39,7 +39,7 @@ collections:
         widget: "text"
         required: false
 
-      - label: "Category"
+          - label: "Category"
             name: "category"
             widget: "select"
             options:
