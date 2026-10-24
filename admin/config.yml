@@ -40,20 +40,20 @@ collections:
         required: false
 
       - label: "Category"
-        name: "category"
-        widget: "select"
-        options:
-          - Bangladesh
-          - International
-          - Politics
-          - Economy
-          - Sports
-          - Education
-          - Science & Technology
-          - editorial
-          - Miscellaneous
+            name: "category"
+            widget: "select"
+            options:
+              - "Bangladesh"
+              - "International"
+              - "Politics"
+              - "Economy"
+              - "Sports"
+              - "Education"
+              - "Science & Technology"
+              - "editorial"
+              - "Miscellaneous"
 
-      - label: "Show as Main News"
+          - label: "Show as Main News"
             name: "main_news"
             widget: "boolean"
             default: false
