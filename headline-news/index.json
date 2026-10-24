@@ -1,5 +1,23 @@
 [
   {
+    "image_caption": "TESTING",
+    "summary_en": "Organizations that work with female workers returning from Saudi Arabia say that physical and mental abuse, not receiving proper or no pay, and sexual harassment are the main reasons why most female workers return.",
+    "summary_bn": "সৌদি আরব থেকে ফিরে আসা নারী কর্মীদের নিয়ে কাজ করে এমন সংস্থাগুলো বলছে, মূলত শারীরিক মানসিক নিপীড়ন, ঠিকমতো  বেতন না পাওয়া কিংবা একেবারেই না পাওয়া এবং যৌন নির্যাতনের শিকার হওয়াটাই অধিকাংশ নারী শ্রমিকের ফিরে আসার মূল কারণ।",
+    "collected_at": "2026-10-22T05:28:00.111066+00:00",
+    "summary_original": "সৌদি আরব থেকে ফিরে আসা নারী কর্মীদের নিয়ে কাজ করে এমন সংস্থাগুলো বলছে, মূলত শারীরিক মানসিক নিপীড়ন, ঠিকমতো  বেতন না পাওয়া কিংবা একেবারেই না পাওয়া এবং যৌন নির্যাতনের শিকার হওয়াটাই অধিকাংশ নারী শ্রমিকের ফিরে আসার মূল কারণ।",
+    "source_url": "https://www.bbc.com/bengali/articles/cje36xln66xko?at_medium=RSS&at_campaign=rss",
+    "date": "2026-10-24T17:16:00.000+01:00",
+    "title_en": "How safe are Bangladeshi female workers in Saudi Arabia?",
+    "status": "needs_review",
+    "title_bn": "সৌদি আরবে বাংলাদেশি নারী কর্মীদের সুরক্ষার ব্যবস্থা কতটা আছে",
+    "approved": true,
+    "title_original": "সৌদি আরবে বাংলাদেশি নারী কর্মীদের সুরক্ষার ব্যবস্থা কতটা আছে",
+    "main_news": true,
+    "source": "BBC News বাংলা",
+    "image": "/images/california now.jpeg",
+    "category": "Bangladesh"
+  },
+  {
     "image_caption": "BANGLADESH",
     "summary_en": "This is a test news item for checking the ChobiBarta BD publishing workflow. Replace this text with a verified news summary before publication.",
     "summary_bn": "এটি ছবি বার্তা বিডির সংবাদ প্রকাশের প্রক্রিয়া পরীক্ষা করার জন্য একটি পরীক্ষামূলক সংবাদ। প্রকাশের আগে যাচাইকৃত সংবাদ দিয়ে এটি পরিবর্তন করুন।",
