@@ -404,6 +404,55 @@ fetch('/headline-news/index.json')
   })
   .catch(error => console.error('Headline error:', error));
 </script>
+  <script>
+(async function loadVideoClips() {
+  const panel = document.getElementById('video-clips-content');
+  if (!panel) return;
+
+  try {
+    const response = await fetch('/video-clips/2026-10-24-test.json');
+    if (!response.ok) throw new Error('Video data not found');
+
+    const video = await response.json();
+
+    if (video.approved !== true || !video.video_url) {
+      panel.textContent = 'ভিডিও শীঘ্রই প্রকাশিত হবে।';
+      return;
+    }
+
+    const match = video.video_url.match(
+      /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/
+    );
+
+    if (!match) {
+      panel.textContent = 'ভিডিও লিংকটি সঠিক নয়।';
+      return;
+    }
+
+    panel.replaceChildren();
+
+    const title = document.createElement('h4');
+    title.textContent = video.caption_bn || video.title || 'ভিডিও ক্লিপ';
+    panel.appendChild(title);
+
+    const frame = document.createElement('iframe');
+    frame.src = 'https://www.youtube-nocookie.com/embed/' + match[1];
+    frame.title = video.title || 'ChobiBarta BD Video';
+    frame.loading = 'lazy';
+    frame.allow =
+      'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    frame.allowFullscreen = true;
+    frame.style.width = '100%';
+    frame.style.aspectRatio = '16 / 9';
+    frame.style.border = '0';
+
+    panel.appendChild(frame);
+  } catch (error) {
+    console.error('Video Clips loading error:', error);
+    panel.textContent = 'ভিডিও লোড করা যায়নি।';
+  }
+})();
+</script>
 </body>
 </html>
 
