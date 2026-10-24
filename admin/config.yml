@@ -8,8 +8,8 @@ public_folder: "/images"
 
 publish_mode: editorial_workflow
 
-site_url: https://www.chobibartabd.online
-display_url: https://www.chobibartabd.online
+site_url: "https://www.chobibartabd.online"
+display_url: "https://www.chobibartabd.online"
 
 collections:
   - name: "news"
@@ -21,102 +21,107 @@ collections:
     extension: "json"
     format: "json"
     fields:
-          - label: "English Headline"
-            name: "title_en"
-            widget: "string"
+      - label: "English Headline"
+        name: "title_en"
+        widget: "string"
 
-          - label: "Bengali Headline"
-            name: "title_bn"
-            widget: "string"
+      - label: "Bengali Headline"
+        name: "title_bn"
+        widget: "string"
 
-          - label: "English Summary"
-            name: "summary_en"
-            widget: "text"
-            required: false
+      - label: "English Summary"
+        name: "summary_en"
+        widget: "text"
+        required: false
 
-          - label: "Bengali Summary"
-            name: "summary_bn"
-            widget: "text"
-            required: false
+      - label: "Bengali Summary"
+        name: "summary_bn"
+        widget: "text"
+        required: false
 
-          - label: "Category"
-            name: "category"
-            widget: "select"
-            options:
-              - "Bangladesh"
-              - "International"
-              - "Politics"
-              - "Economy"
-              - "Sports"
-              - "Education"
-              - "Science & Technology"
-              - "editorial"
-              - "Miscellaneous"
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - "Bangladesh"
+          - "International"
+          - "Politics"
+          - "Economy"
+          - "Sports"
+          - "Education"
+          - "Science & Technology"
+          - "editorial"
+          - "Miscellaneous"
 
-          - label: "Show as Main News"
-            name: "main_news"
-            widget: "boolean"
-            default: false
-            required: false
+      - label: "Show as Main News"
+        name: "main_news"
+        widget: "boolean"
+        default: false
+        required: false
 
-          - label: "News Source"
-            name: "source"
-            widget: "string"
+      - label: "News Source"
+        name: "source"
+        widget: "string"
 
-          - label: "Original Article Link"
-           name: "source_url"
-           widget: "string"
+      - label: "Original Article Link"
+        name: "source_url"
+        widget: "string"
 
-          - label: "News Image"
-           name: "image"
-           widget: "image"
-           required: false
+      - label: "News Image"
+        name: "image"
+        widget: "image"
+        required: false
 
-          - label: "Image Caption"
-            name: "image_caption"
-            widget: "string"
-            required: false
+      - label: "Image Caption"
+        name: "image_caption"
+        widget: "string"
+        required: false
 
-          - label: "Publication Date"
-            name: "date"
-            widget: "datetime"
+      - label: "Publication Date"
+        name: "date"
+        widget: "datetime"
 
-          - label: "Approved for Publication"
-            name: "approved"
-            widget: "boolean"
-            default: false
-  
+      - label: "Approved for Publication"
+        name: "approved"
+        widget: "boolean"
+        default: false
+
   - name: "hot_of_the_day"
     label: "Hot of the Day"
+    label_singular: "Hot of the Day Item"
     folder: "hot-of-the-day"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     extension: "json"
     format: "json"
     fields:
-          - label: "Picture Title"
-            name: "title"
-            widget: "string"
-          - label: "Slideshow Pictures (up to 3)"
-            name: "images"
-            widget: "list"
-            min: 1
-            max: 3
-            field:
-              label: "Picture"
-              name: "image"
-              widget: "image"
-          - label: "Caption"
-            name: "caption"
-            widget: "text"
-            required: false
-          - label: "Publication Date"
-            name: "date"
-            widget: "datetime"
-          - label: "Approved for Publication"
-            name: "approved"
-            widget: "boolean"
-            default: false
+      - label: "Picture Title"
+        name: "title"
+        widget: "string"
+
+      - label: "Slideshow Pictures (up to 3)"
+        name: "images"
+        widget: "list"
+        min: 1
+        max: 3
+        field:
+          label: "Picture"
+          name: "image"
+          widget: "image"
+
+      - label: "Caption"
+        name: "caption"
+        widget: "text"
+        required: false
+
+      - label: "Publication Date"
+        name: "date"
+        widget: "datetime"
+
+      - label: "Approved for Publication"
+        name: "approved"
+        widget: "boolean"
+        default: false
 
   - name: "breaking_news"
     label: "Breaking News"
@@ -127,16 +132,19 @@ collections:
     extension: "json"
     format: "json"
     fields:
-    - label: "Breaking Headline"
-      name: "title"
-      widget: "string"
-    - label: "Publication Date"
-      name: "date"
-      widget: "datetime"
-    - label: "Approved for Publication"
-      name: "approved"
-      widget: "boolean"
-      default: false
+      - label: "Breaking Headline"
+        name: "title"
+        widget: "string"
+
+      - label: "Publication Date"
+        name: "date"
+        widget: "datetime"
+
+      - label: "Approved for Publication"
+        name: "approved"
+        widget: "boolean"
+        default: false
+
   - name: "video_clips"
     label: "Video Clips"
     label_singular: "Video Clip"
@@ -149,17 +157,21 @@ collections:
       - label: "Video Title"
         name: "title"
         widget: "string"
+
       - label: "Bengali Caption"
         name: "caption_bn"
         widget: "text"
         required: false
+
       - label: "Video URL"
         name: "video_url"
         widget: "string"
         hint: "Paste a YouTube video link or a direct MP4 URL"
+
       - label: "Publication Date"
         name: "date"
         widget: "datetime"
+
       - label: "Approved for Publication"
         name: "approved"
         widget: "boolean"
