@@ -54,11 +54,14 @@ collections:
           - Miscellaneous
 
       - label: "Show as Main News"
-          name: "main_news"
-          widget: "boolean"
-          default: false- label: "News Source"
-        name: "source"
-        widget: "string"
+            name: "main_news"
+            widget: "boolean"
+            default: false
+            required: false
+
+          - label: "News Source"
+            name: "source"
+            widget: "string"
 
       - label: "Original Article Link"
         name: "source_url"
