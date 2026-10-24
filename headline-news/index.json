@@ -1,5 +1,19 @@
 [
   {
+    "image_caption": "BANGLADESH",
+    "summary_en": "This is a test news item for checking the ChobiBarta BD publishing workflow. Replace this text with a verified news summary before publication.",
+    "summary_bn": "এটি ছবি বার্তা বিডির সংবাদ প্রকাশের প্রক্রিয়া পরীক্ষা করার জন্য একটি পরীক্ষামূলক সংবাদ। প্রকাশের আগে যাচাইকৃত সংবাদ দিয়ে এটি পরিবর্তন করুন।",
+    "source_url": "test",
+    "date": "2026-10-24T16:40:00.000+01:00",
+    "title_en": "Bangladesh announces new digital services initiative",
+    "title_bn": "বাংলাদেশে নতুন ডিজিটাল সেবা উদ্যোগের ঘোষণা",
+    "approved": true,
+    "main_news": true,
+    "source": "Test entry — not a verified news source",
+    "image": "/images/bd-flag.jpeg",
+    "category": "Bangladesh"
+  },
+  {
     "image_caption": "BD test",
     "summary_en": "Officially announcing his resignation as state minister at a press conference at the National Press Club in Dhaka on Monday afternoon, he said he had made no mistake in taking up arms in the anti-drug campaign.",
     "summary_bn": "সোমবার দুপুরে ঢাকার জাতীয় প্রেসক্লাবে এক সংবাদ সম্মেলনে আনুষ্ঠানিকভাবে প্রতিমন্ত্রীর পদ ছাড়ার ঘোষণা দিয়ে তিনি বলেছেন, অস্ত্র হাতে মাদকবিরোধী অভিযানে নেমে তিনি কোন ভুল করেননি।",
