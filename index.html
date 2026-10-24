@@ -86,7 +86,8 @@ position: relative;
   <main>
     <section class="hero-section">
       <div class="container hero-grid">
-        <article class="hero-main card">
+        <article class="hero-main card" id="main-news-card">
+  <img id="main-news-image" src="" alt="প্রধান সংবাদ" style="display:none;">
           
           <div class="hero-content">
             <span class="tag" id="main-news-category">শীর্ষ সংবাদ</span>
@@ -481,6 +482,13 @@ fetch('/headline-news/index.json')
       news.summary_bn || news.summary_en || '';
     if (category) category.textContent = news.category || 'শীর্ষ সংবাদ';
     if (meta) meta.textContent = news.source || 'ছবি বার্তা';
+    const image = document.getElementById('main-news-image');
+
+if (image && news.image) {
+  image.src = news.image;
+  image.alt = news.title_bn || news.title_en || 'প্রধান সংবাদ';
+  image.style.display = 'block';
+}
 
   })
   .catch(error => console.error('Main news loading error:', error));
