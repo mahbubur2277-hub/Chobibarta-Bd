@@ -385,8 +385,24 @@ fetch('/headline-news/index.json')
       card.className = 'news-card card';
 
       const image = document.createElement('div');
-      image.className = 'news-img placeholder';
-      image.textContent = item.category || 'সংবাদ';
+image.className = 'news-img';
+
+if (item.image) {
+    const img = document.createElement('img');
+    img.src = item.image.startsWith('/')
+        ? item.image
+        : '/' + item.image;
+    img.alt = item.title_bn || item.title_en || 'সংবাদ';
+    img.loading = 'lazy';
+    img.onerror = function () {
+        image.classList.add('placeholder');
+        image.textContent = item.category || 'সংবাদ';
+    };
+    image.appendChild(img);
+} else {
+    image.classList.add('placeholder');
+    image.textContent = item.category || 'সংবাদ';
+}
 
       const body = document.createElement('div');
       body.className = 'news-body';
