@@ -573,18 +573,26 @@ fetch('/headline-news/index.json')
   })
   .catch(error => console.error('Headline error:', error));
 </script>
-  <script>
+<script>
 (async function loadVideoClips() {
   const panel = document.getElementById('video-clips-content');
   if (!panel) return;
 
   try {
-    const response = await fetch('/video-clips/2026-10-25-1971-vs-2024.json');
-    if (!response.ok) throw new Error('Video data not found');
+    const response = await fetch('/video-clips/index.json');
+    if (!response.ok) throw new Error('Video index not found');
 
-    const video = await response.json();
+    const data = await response.json();
+    const videos = Array.isArray(data.videos) ? data.videos : [];
 
-    if (video.approved !== true || !video.video_url) {
+    const video = videos.find(item =>
+      item &&
+      item.approved === true &&
+      typeof item.video_url === 'string' &&
+      item.video_url.trim()
+    );
+
+    if (!video) {
       panel.textContent = 'ভিডিও শীঘ্রই প্রকাশিত হবে।';
       return;
     }
@@ -601,11 +609,13 @@ fetch('/headline-news/index.json')
     panel.replaceChildren();
 
     const title = document.createElement('h4');
-    title.textContent = video.caption_bn || video.title || 'ভিডিও ক্লিপ';
+    title.textContent =
+      video.caption_bn || video.title || 'ভিডিও ক্লিপ';
     panel.appendChild(title);
 
     const frame = document.createElement('iframe');
-    frame.src = 'https://www.youtube-nocookie.com/embed/' + match[1];
+    frame.src =
+      'https://www.youtube-nocookie.com/embed/' + match[1];
     frame.title = video.title || 'ChobiBarta BD Video';
     frame.loading = 'lazy';
     frame.allow =
@@ -622,7 +632,6 @@ fetch('/headline-news/index.json')
   }
 })();
 </script>
-<script>
 fetch('/headline-news/index.json')
   .then(response => {
     if (!response.ok) throw new Error('News file not found');
