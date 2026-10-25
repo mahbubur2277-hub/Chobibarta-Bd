@@ -1,0 +1,76 @@
+name: Update Video Clips Index
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'video-clips/*.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-video-index:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Build approved video index
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          folder = Path("video-clips")
+          videos = []
+
+          for path in folder.glob("*.json"):
+              if path.name == "index.json":
+                  continue
+
+              try:
+                  data = json.loads(path.read_text(encoding="utf-8"))
+                  if data.get("approved") is True and data.get("video_url"):
+                      videos.append({
+                          **data,
+                          "file": path.name
+                      })
+              except (json.JSONDecodeError, OSError) as error:
+                  print(f"Skipping {path.name}: {error}")
+
+          videos.sort(
+              key=lambda item: item.get("date", ""),
+              reverse=True
+          )
+
+          output = {"videos": videos}
+          target = folder / "index.json"
+          content = json.dumps(
+              output, ensure_ascii=False, indent=2
+          ) + "\n"
+
+          if not target.exists() or target.read_text(encoding="utf-8") != content:
+              target.write_text(content, encoding="utf-8")
+              print(f"Updated index with {len(videos)} approved videos.")
+          else:
+              print("Video index is already up to date.")
+          PY
+
+      - name: Commit updated index
+        run: |
+          if git diff --quiet -- video-clips/index.json; then
+            echo "No index changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add video-clips/index.json
+          git commit -m "Update approved video clips index"
+          git push
