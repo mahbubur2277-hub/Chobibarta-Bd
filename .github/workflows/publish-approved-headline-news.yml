@@ -72,7 +72,7 @@ jobs:
       - name: Commit published headlines
         run: |
           if git diff --quiet -- headline-news/index.json; then
-            echo "No headline changes to publish."
+            echo "No headline or article changes to publish."
             exit 0
           fi
 
