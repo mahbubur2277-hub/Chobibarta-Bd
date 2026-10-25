@@ -381,43 +381,60 @@ fetch('/headline-news/index.json')
     grid.innerHTML = '';
 
     approved.forEach(item => {
-      const card = document.createElement('article');
-      card.className = 'news-card card';
+  const card = document.createElement('article');
+  card.className = 'news-card card';
+  card.style.cursor = 'pointer';
 
-      const image = document.createElement('div');
-image.className = 'news-img';
+  const image = document.createElement('div');
+  image.className = 'news-img';
 
-if (item.image) {
+  if (item.image) {
     const img = document.createElement('img');
     img.src = item.image.startsWith('/')
-        ? item.image
-        : '/' + item.image;
+      ? item.image
+      : '/' + item.image;
     img.alt = item.title_bn || item.title_en || 'সংবাদ';
     img.loading = 'lazy';
+
     img.onerror = function () {
-        image.classList.add('placeholder');
-        image.textContent = item.category || 'সংবাদ';
+      image.classList.add('placeholder');
+      image.textContent = item.category || 'সংবাদ';
     };
+
     image.appendChild(img);
-} else {
+  } else {
     image.classList.add('placeholder');
     image.textContent = item.category || 'সংবাদ';
-}
+  }
 
-      const body = document.createElement('div');
-      body.className = 'news-body';
+  const body = document.createElement('div');
+  body.className = 'news-body';
 
-      const tag = document.createElement('span');
-      tag.className = 'mini-tag';
-      tag.textContent = item.category || 'সংবাদ';
+  const tag = document.createElement('span');
+  tag.className = 'mini-tag';
+  tag.textContent = item.category || 'সংবাদ';
 
-      const title = document.createElement('h3');
-      title.textContent = item.title_bn || item.title_en;
+  const title = document.createElement('h3');
+  title.textContent = item.title_bn || item.title_en;
 
-      body.append(tag, title);
-      card.append(image, body);
-      grid.appendChild(card);
-    });
+  const summary = document.createElement('p');
+  summary.textContent =
+    item.summary_bn || item.summary_en || '';
+
+  body.append(tag, title, summary);
+  card.append(image, body);
+
+  card.addEventListener('click', () => {
+    if (item.article_url) {
+      window.location.href = item.article_url;
+    } else if (item.source_url) {
+      window.open(item.source_url, '_blank', 'noopener');
+    } else {
+      alert('এই সংবাদের বিস্তারিত লিংক পাওয়া যায়নি।');
+    }
+  });
+
+  grid.appendChild(card)
   })
   .catch(error => console.error('Headline error:', error));
 </script>
