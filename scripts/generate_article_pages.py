@@ -305,5 +305,6 @@ h1 {{
     print(f"Finished: generated {generated} approved article pages.")
 
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()
+    
