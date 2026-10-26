@@ -498,7 +498,7 @@ fetch('/headline-news/index.json')
     return response.json();
   })
   .then(items => {
-    const grid = document.getElementById('latest-news-grid');
+    const grid = document.getElementById('latest-headlines-list');
     if (!grid || !Array.isArray(items)) return;
 
     const approved = items.filter(item =>
