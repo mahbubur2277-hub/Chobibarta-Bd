@@ -628,7 +628,7 @@ fetch('/headline-news/index.json')
   }
 })();
 </script>
-fetch('/headline-news/index.json')
+<script> fetch('/headline-news/index.json')
   .then(response => {
     if (!response.ok) throw new Error('News file not found');
     return response.json();
