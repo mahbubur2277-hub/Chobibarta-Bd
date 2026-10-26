@@ -640,12 +640,16 @@ fetch('/headline-news/index.json')
   .then(items => {
     if (!Array.isArray(items)) return;
 
-    const news = items.find(item =>
-      item &&
-      item.approved === true &&
-      item.main_news === true &&
-      (item.title_bn || item.title_en)
-    );
+    const news = items
+    .filter(item =>
+        item &&
+        item.approved === true &&
+        item.main_news === true &&
+        (item.title_bn || item.title_en)
+    )
+    .sort((a, b) =>
+        new Date(b.date || 0) - new Date(a.date || 0)
+    )[0];
 
     if (!news) return;
 
