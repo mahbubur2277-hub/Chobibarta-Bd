@@ -194,18 +194,5 @@
     "source": "chobibarta.online",
     "image": "/images/ছবিবার্তা.jpeg",
     "category": "Bangladesh"
-  },
-  {
-    "image_caption": "Test News",
-    "summary_en": "This is a test news story to check that approved headlines appear correctly on the ChobiBarta BD website.\n",
-    "summary_bn": "ছবিবার্তা বিডি ওয়েবসাইটে অনুমোদিত সংবাদ সঠিকভাবে প্রকাশ হচ্ছে কি না, তা পরীক্ষা করার জন্য এই পরীক্ষামূলক সংবাদ তৈরি করা হয়েছে।",
-    "source_url": "www.chobibartabd.online",
-    "date": "2026-10-15T21:16:00.000+01:00",
-    "title_en": "TEST NEWS: Chobi Barta BD publishing system check",
-    "title_bn": "পরীক্ষামূলক সংবাদ: ছবিবার্তা বিডির সংবাদ প্রকাশ ব্যবস্থা পরীক্ষা",
-    "approved": true,
-    "source": "chobi barta",
-    "image": "/images/california now.jpeg",
-    "category": "Bangladesh"
   }
 ]
