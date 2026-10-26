@@ -662,7 +662,9 @@ fetch('/headline-news/index.json')
     const image = document.getElementById('main-news-image');
 
 if (image && news.image) {
-  image.src = news.image;
+  image.src = news.image.startsWith('http')
+  ? news.image
+  : new URL(news.image, window.location.origin).href;
   image.alt = news.title_bn || news.title_en || 'প্রধান সংবাদ';
   image.style.display = 'block';
 }
