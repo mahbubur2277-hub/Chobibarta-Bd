@@ -576,14 +576,37 @@ fetch('/headline-news/index.json')
   card.append(image, body);
 
   card.addEventListener('click', () => {
-    if (item.article_url) {
-      window.location.href = item.article_url;
-    } else if (item.source_url) {
-      window.open(item.source_url, '_blank', 'noopener');
-    } else {
-      alert('এই সংবাদের বিস্তারিত লিংক পাওয়া যায়নি।');
+  const articleUrl = (item.article_url || '').trim();
+  const sourceUrl = (item.source_url || '').trim();
+
+  if (articleUrl) {
+    window.location.href = new URL(
+      articleUrl,
+      window.location.origin
+    ).href;
+    return;
+  }
+
+  if (/^https?:\/\//i.test(sourceUrl)) {
+    const source = new URL(sourceUrl);
+
+    if (source.pathname !== '/' || source.search) {
+      window.open(source.href, '_blank', 'noopener');
+      return;
     }
-  });
+  }
+
+  const slug = (item.title_en || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
+  if (slug) {
+    window.location.href = '/news/' + slug + '.html';
+  } else {
+    alert('এই সংবাদের লিংক পাওয়া যায়নি।');
+  }
+});
 
   grid.appendChild(card);
     });
