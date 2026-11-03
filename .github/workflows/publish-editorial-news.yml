@@ -1,0 +1,82 @@
+name: Publish Editorial Index
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'editorial/*.json'
+      - '!editorial/index.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-editorial-index:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Build Editorial Index
+        run: |
+          python3 <<'PY'
+          import json
+          from pathlib import Path
+
+          folder = Path("editorial")
+          folder.mkdir(exist_ok=True)
+
+          editorials = []
+
+          for path in folder.glob("*.json"):
+              if path.name == "index.json":
+                  continue
+
+              try:
+                  data = json.loads(path.read_text(encoding="utf-8"))
+
+                  if (
+                      isinstance(data, dict)
+                      and data.get("approved") is True
+                      and data.get("title")
+                  ):
+                      data["file"] = path.name
+                      editorials.append(data)
+
+              except Exception as error:
+                  print(f"Skipping {path}: {error}")
+
+          editorials.sort(
+              key=lambda item: item.get("date", ""),
+              reverse=True
+          )
+
+          output = folder / "index.json"
+          output.write_text(
+              json.dumps(
+                  {"editorials": editorials},
+                  ensure_ascii=False,
+                  indent=2
+              ) + "\n",
+              encoding="utf-8"
+          )
+
+          print(f"Published {len(editorials)} approved editorial entries.")
+          PY
+
+      - name: Commit and push index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add editorial/index.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update editorial index"
+            git push origin main
+          else
+            echo "No changes to publish."
+          fi
