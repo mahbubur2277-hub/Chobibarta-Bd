@@ -176,3 +176,42 @@ collections:
         name: "approved"
         widget: "boolean"
         default: false
+  - name: "editorial"
+    label: "Editorial"
+    label_singular: "Editorial Article"
+    folder: "editorial"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - label: "Article Title"
+        name: "title"
+        widget: "string"
+
+      - label: "Author Name"
+        name: "author"
+        widget: "string"
+
+      - label: "Short Summary"
+        name: "summary"
+        widget: "text"
+        required: false
+
+      - label: "Editorial Image"
+        name: "image"
+        widget: "image"
+        required: false
+
+      - label: "Full Editorial Article"
+        name: "body"
+        widget: "text"
+
+      - label: "Publication Date"
+        name: "date"
+        widget: "datetime"
+
+      - label: "Approved for Publication"
+        name: "approved"
+        widget: "boolean"
+        default: false
